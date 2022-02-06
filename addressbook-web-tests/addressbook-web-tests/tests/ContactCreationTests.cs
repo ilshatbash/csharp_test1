@@ -10,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactCreationTest
+    public class ContactCreationTests
     {
         private IWebDriver driver;
         private StringBuilder verificationErrors;
@@ -40,7 +40,7 @@ namespace WebAddressbookTests
         }
 
         [Test]
-        public void TheContactCreationTest()
+        public void ContactCreationTest()
         {
             OpenHomePage();
             Login("admin","secret");
