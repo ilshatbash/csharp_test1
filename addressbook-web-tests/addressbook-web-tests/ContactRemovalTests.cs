@@ -14,7 +14,7 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemovalTest()
         {
-            //GoToHomePage();
+            GoToHomePage();
             Login(new AccountData("admin","secret"));
             SelectContact(1);
             RemoveContact();

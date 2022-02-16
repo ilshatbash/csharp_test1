@@ -13,12 +13,12 @@ namespace WebAddressbookTests
 { public class TestBase
     {
         private IWebDriver driver;
-        //private StringBuilder verificationErrors;
+        private StringBuilder verificationErrors;
         private string baseURL= "http://localhost/addressbook/";
         private bool acceptNextAlert = true;
 
         protected ApplicationManager app;
-
+        /*
         [SetUp]
         public void SetupTest()
         {
@@ -34,11 +34,11 @@ namespace WebAddressbookTests
         {
             app.Stop();
         }
-
+*/
        
-/*
+
         [SetUp]
-        protected void SetupTest2() //Переименовал. В следующем шаге объединим с SetupTest
+        protected void SetupTest() 
         {
             driver = new FirefoxDriver();
             baseURL = "http://localhost/addressbook/";
@@ -46,7 +46,7 @@ namespace WebAddressbookTests
         }
 
         [TearDown]
-        public void TeardownTest2() //Переименовал. В следующем шаге объединим с SetupTest
+        public void TeardownTest() //Переименовал. В следующем шаге объединим с SetupTest
         {
             try
             {
@@ -58,7 +58,7 @@ namespace WebAddressbookTests
             }
             Assert.AreEqual("", verificationErrors.ToString());
         }
-*/
+
         protected void ReturnToHomePage()
         {
             driver.FindElement(By.LinkText("home")).Click();
@@ -83,12 +83,12 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("pass")).SendKeys(account.Password);
             driver.FindElement(By.XPath("//input[@value='Login']")).Click();
         }
-/*
+
         protected void GoToHomePage()
         {
             driver.Navigate().GoToUrl(baseURL);
         }
-*/
+
 
     protected void SubmitContactCreation()
     {
@@ -138,10 +138,6 @@ namespace WebAddressbookTests
     {
         driver.FindElement(By.LinkText("add new")).Click();
     }
-
-
-
-
 
     }
 }
