@@ -6,7 +6,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
-
+//Добавлен тестовый комментарий на созданный branch
 namespace WebAddressbookTests
 {
     [TestFixture]
