@@ -10,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactRemovalTests
+    public class GroupRemovalTest : TestBase
     {
         private IWebDriver driver;
         private StringBuilder verificationErrors;
@@ -40,20 +40,51 @@ namespace WebAddressbookTests
         }
 
         [Test]
-        public void ContactRemovalTest()
+        public void GroupRemovalTests()
         {
-            driver.Navigate().GoToUrl(baseURL+"group.php");
-            driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys("Admin");
-            driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys("secret");
-            driver.FindElement(By.Id("LoginForm")).Click();
-            driver.FindElement(By.XPath("//input[@value='Login']")).Click();
-            driver.FindElement(By.LinkText("groups")).Click();
-            driver.FindElement(By.Name("selected[]")).Click();
-            driver.FindElement(By.XPath("//div[@id='content']/form/input[5]")).Click();
+            GoToHomePage();
+            Login(new AccountData("admin","secret"));
+            GoToGroupsPage();
+            SelectGroup(1);
+            RemoveGroup();
+            ReturnToGroupsPage();
+        }
+
+        private void ReturnToGroupsPage()
+        {
             driver.FindElement(By.LinkText("group page")).Click();
         }
+
+        private void RemoveGroup()
+        {
+            driver.FindElement(By.Name("delete")).Click();
+        }
+
+        private void SelectGroup(int index)
+        {
+            driver.FindElement(By.XPath("//input [@name='selected[]']["+index+"]")).Click();
+        }
+
+        private void GoToGroupsPage()
+        {
+            driver.FindElement(By.LinkText("groups")).Click();
+        }
+
+        private void Login(AccountData account)
+        {
+            driver.FindElement(By.Name("user")).Clear();
+            driver.FindElement(By.Name("user")).SendKeys(account.Username);
+            driver.FindElement(By.Name("pass")).Clear();
+            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
+            driver.FindElement(By.Id("LoginForm")).Click();
+            driver.FindElement(By.XPath("//input[@value='Login']")).Click();
+        }
+
+        private void GoToHomePage()
+        {
+            driver.Navigate().GoToUrl(baseURL + "group.php");
+        }
+
         private bool IsElementPresent(By by)
         {
             try

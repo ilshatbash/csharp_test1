@@ -10,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class ContactCreationTest
+    public class ContactCreationTest : TestBase
     {
         private IWebDriver driver;
         private StringBuilder verificationErrors;
