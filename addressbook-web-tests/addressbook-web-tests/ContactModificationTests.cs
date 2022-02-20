@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-    class ContactModificationTests
+    class ContactModificationTests : TestBase
     {
     }
 }
