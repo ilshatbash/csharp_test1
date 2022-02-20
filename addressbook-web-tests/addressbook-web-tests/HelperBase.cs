@@ -6,21 +6,18 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
-
 namespace WebAddressbookTests
 {
-    public class BaseHelper
+    public class HelperBase
     {
+        protected IWebDriver driver;
         protected bool acceptNextAlert = true;
-        protected StringBuilder verificationErrors;   
-        private IWebDriver driver;
-
-        public BaseHelper(IWebDriver driver)
+        protected StringBuilder verificationErrors;
+        public HelperBase(IWebDriver driver)
         {
             this.driver = driver;
+           
         }
-
-       
 
         public bool IsAlertPresent()
         {
@@ -46,8 +43,27 @@ namespace WebAddressbookTests
                 return false;
             }
         }
-
-
+        public string CloseAlertAndGetItsText()
+        {
+            try
+            {
+                IAlert alert = driver.SwitchTo().Alert();
+                string alertText = alert.Text;
+                if (acceptNextAlert)
+                {
+                    alert.Accept();
+                }
+                else
+                {
+                    alert.Dismiss();
+                }
+                return alertText;
+            }
+            finally
+            {
+                acceptNextAlert = true;
+            }
+        }
 
 
     }

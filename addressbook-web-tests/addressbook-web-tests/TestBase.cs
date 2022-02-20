@@ -21,7 +21,7 @@ namespace WebAddressbookTests
         protected NavigationHelper navigator;
         protected GroupHelper groupHelper;
         protected ContactHelper contactHelper;
-        protected BaseHelper baseHelper;
+       
 
         [SetUp]
         public void SetupTest()
@@ -29,7 +29,6 @@ namespace WebAddressbookTests
             driver = new FirefoxDriver();
             baseURL = "http://localhost/addressbook/";
             verificationErrors = new StringBuilder();
-            baseHelper = new BaseHelper(driver);
             loginHelper = new LoginHelper(driver);
             navigator = new NavigationHelper(driver,baseURL);
             groupHelper = new GroupHelper(driver);
@@ -51,9 +50,8 @@ namespace WebAddressbookTests
             Assert.AreEqual("", verificationErrors.ToString());
         }
         
-       
-      
-       
+
+
     }
 
 }

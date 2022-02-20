@@ -10,15 +10,11 @@ using OpenQA.Selenium.Support.UI;
 using System.Text.RegularExpressions;
 namespace WebAddressbookTests
 {
-    public class ContactHelper 
-    {
-        private IWebDriver driver;
-        protected StringBuilder verificationErrors;
-        protected bool acceptNextAlert = true;
-
-        public ContactHelper(IWebDriver driver)
+    public class ContactHelper : HelperBase
+    { 
+        public ContactHelper(IWebDriver driver):base(driver)
         {
-            this.driver = driver;
+           
         }
         public void SubmitContactCreation()
         {
@@ -92,28 +88,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("//tbody//input[@type='checkbox'][" + index + "]")).Click();
         }
 
-        public string CloseAlertAndGetItsText()
-        {
-            try
-            {
-                IAlert alert = driver.SwitchTo().Alert();
-                string alertText = alert.Text;
-                if (acceptNextAlert)
-                {
-                    alert.Accept();
-                }
-                else
-                {
-                    alert.Dismiss();
-                }
-                return alertText;
-            }
-            finally
-            {
-                acceptNextAlert = true;
-            }
-        }
-
+       
 
 
     }
