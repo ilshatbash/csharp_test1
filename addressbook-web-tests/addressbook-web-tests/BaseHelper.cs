@@ -12,7 +12,7 @@ namespace WebAddressbookTests
     public class BaseHelper
     {
         protected bool acceptNextAlert = true;
-        protected StringBuilder verificationErrors;
+        protected StringBuilder verificationErrors;   
         private IWebDriver driver;
 
         public BaseHelper(IWebDriver driver)
@@ -20,27 +20,7 @@ namespace WebAddressbookTests
             this.driver = driver;
         }
 
-        public string CloseAlertAndGetItsText()
-        {
-            try
-            {
-                IAlert alert = driver.SwitchTo().Alert();
-                string alertText = alert.Text;
-                if (acceptNextAlert)
-                {
-                    alert.Accept();
-                }
-                else
-                {
-                    alert.Dismiss();
-                }
-                return alertText;
-            }
-            finally
-            {
-                acceptNextAlert = true;
-            }
-        }
+       
 
         public bool IsAlertPresent()
         {
