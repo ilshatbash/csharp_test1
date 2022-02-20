@@ -17,12 +17,12 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTests()
         {
-            OpenHomePage();
-            Login(new AccountData("admin", "secret"));
-            GoToAddNew();
-            FillGroupForm("asdf", "qwee", "dfasdf", "asdf","asdf", "fdsa", "zxcv", "fdsa", "lhhjkl", "43212344", "fdsadas");
-            SubmitContactCreation();
-            ReturnToHomePage();
+            navigator.GoToHomePage();
+            loginHelper.Login(new AccountData("admin", "secret"));
+            contactHelper.GoToAddNew();
+            contactHelper.FillGroupForm("asdf", "qwee", "dfasdf", "asdf","asdf", "fdsa", "zxcv", "fdsa", "lhhjkl", "43212344", "fdsadas");
+            contactHelper.SubmitContactCreation();
+            contactHelper.ReturnToHomePage();
         }
 
        

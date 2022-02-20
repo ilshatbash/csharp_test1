@@ -16,12 +16,12 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemovalTests()
         {
-            GoToHomePage();
-            Login(new AccountData("admin","secret"));
-            GoToContactPage();
-            SelectContact(1);
-            DeleteContact();
-            ReturnToContactPage();
+            navigator.GoToHomePage();
+            loginHelper.Login(new AccountData("admin","secret"));
+            contactHelper.GoToContactPage();
+            contactHelper.SelectContact(1);
+            contactHelper.DeleteContact();
+            contactHelper.ReturnToContactPage();
         }
 
        

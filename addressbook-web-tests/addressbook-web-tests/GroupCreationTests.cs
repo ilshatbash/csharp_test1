@@ -14,16 +14,16 @@ namespace WebAddressbookTests
         [Test]
         public void GroupCreationTests()
         {
-            GoToHomePage();
-            Login(new AccountData("admin","secret"));
-            GoToGroupsPage();
-            InitGroupsCreation();
+            navigator.GoToHomePage();
+            loginHelper.Login(new AccountData("admin","secret"));
+            navigator.GoToGroupsPage();
+            groupHelper.InitGroupsCreation();
             GroupData group = new GroupData("aaa"); //создаем новый экземпляр и далее добавляем значения к пустым полям
             group.Header = "ss";
             group.Footer = "fff";
-            FillGroupForm(group); 
-            SubmitGroupCreation();
-            ReturnToGroupsPage();
+            groupHelper.FillGroupForm(group);
+            groupHelper.SubmitGroupCreation();
+            groupHelper.ReturnToGroupsPage();
         }
 
       
