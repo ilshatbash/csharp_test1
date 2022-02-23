@@ -17,7 +17,7 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTests()
         {
-           app.Navigator.GoToHomePage();
+            app.Navigator.GoToHomePage();
             app.Auth.Login(new AccountData("admin", "secret"));
             app.Contacts.GoToAddNew();
             app.Contacts.FillGroupForm("asdf", "qwee", "dfasdf", "asdf","asdf", "fdsa", "zxcv", "fdsa", "lhhjkl", "43212344", "fdsadas");
