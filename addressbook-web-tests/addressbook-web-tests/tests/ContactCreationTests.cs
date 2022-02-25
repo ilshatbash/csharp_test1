@@ -20,11 +20,8 @@ namespace WebAddressbookTests
             contact.LastName = "ss";
             contact.MiddleName = "fff";
             contact.Phone2 = "412312341234";
-            app.Contacts
-                .GoToAddNew()
-                .FillContactForm(contact)
-                .SubmitContactCreation()
-                .ReturnToHomePage();
+            app.Contacts.Create(contact);
+                
         }
         [Test]
         public void EmptyContactCreationTests()
@@ -33,23 +30,8 @@ namespace WebAddressbookTests
             contact.LastName = "";
             contact.MiddleName = "";
             contact.Phone2 = "";
-            app.Contacts
-                .GoToAddNew()
-                .FillContactForm(contact)
-                .SubmitContactCreation()
-                .ReturnToHomePage();
+            app.Contacts.Create(contact);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-    }
+        }
 }

@@ -3,10 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace WebAddressbookTests
 {
-    class GroupModificationTests : TestBase
+
+    [TestFixture]
+    public class GroupModificationTest : TestBase
     {
+        [Test]
+        public void GroupModificationTests()
+        {
+            GroupData newData = new GroupData("Rasdfadf");
+            newData.Header = "Gasdf";
+            newData.Footer = "Dsaddf";
+            
+
+            app.Groups.Modify(1,newData);
+
+        }
     }
 }
