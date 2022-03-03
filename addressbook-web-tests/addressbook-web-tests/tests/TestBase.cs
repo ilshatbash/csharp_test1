@@ -15,11 +15,11 @@ namespace WebAddressbookTests
 
 
         [SetUp]
-        public void SetupTest()
+        public void SetupApplictionManager()
         {
             app = ApplicationManager.GetInstance(); ;
+            app.Auth.Login(new AccountData("admin", "secret"));
 
-       
 
         }
 
