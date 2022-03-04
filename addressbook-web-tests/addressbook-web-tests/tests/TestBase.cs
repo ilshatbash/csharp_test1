@@ -18,7 +18,7 @@ namespace WebAddressbookTests
         public void SetupApplictionManager()
         {
             app = ApplicationManager.GetInstance(); ;
-            app.Auth.Login(new AccountData("admin", "secret"));
+           // app.Auth.Login(new AccountData("admin", "secret"));
 
 
         }
