@@ -81,10 +81,14 @@ namespace WebAddressbookTests
         }
         public ContactHelper DeleteContact()
         {
-            //acceptNextAlert = true;
-            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
-            Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
+            
+            
+            
+                driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+                Assert.IsTrue(Regex.IsMatch(CloseAlertAndGetItsText(), "^Delete 1 addresses[\\s\\S]$"));
+            
             return this;
+
         }
 
         public ContactHelper GoToContactPage()
