@@ -6,6 +6,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
+using System.Collections.Generic;
 namespace WebAddressbookTests
 {
     [TestFixture]
@@ -20,8 +21,12 @@ namespace WebAddressbookTests
             contact.LastName = "ss";
             contact.MiddleName = "fff";
             contact.Phone2 = "412312341234";
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
             app.Contacts.Create(contact);
-                
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+            Assert.AreEqual(oldContacts.Count + 1, newContacts.Count);
+            
+
         }
         [Test]
         public void EmptyContactCreationTests()
@@ -30,7 +35,10 @@ namespace WebAddressbookTests
             contact.LastName = "";
             contact.MiddleName = "";
             contact.Phone2 = "";
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
             app.Contacts.Create(contact);
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+            Assert.AreEqual(oldContacts.Count + 1, newContacts.Count);
         }
 
         }

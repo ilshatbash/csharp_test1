@@ -26,7 +26,7 @@ namespace WebAddressbookTests
 
             }
   
-            app.Contacts.Modify(1, newContact);
+            app.Contacts.Modify(0, newContact);
 
         }
 
