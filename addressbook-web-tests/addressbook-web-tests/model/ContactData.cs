@@ -34,14 +34,15 @@ namespace WebAddressbookTests
                 return true;
             }
             return (FirstName == other.FirstName) & (LastName == other.LastName);
+
         }
         public override int GetHashCode()
         {
-            return FirstName.GetHashCode() + LastName.GetHashCode();
+            return FirstName.GetHashCode() & LastName.GetHashCode();
         }
         public override string ToString()
         {
-            return FirstName + " " + LastName;
+            return LastName + " " + FirstName;
         }
         public int CompareTo(ContactData other)
         {
@@ -49,8 +50,14 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-            return FirstName.CompareTo(other.FirstName);
+            return LastName.CompareTo(other.LastName);
+
         }
+      
+
+
+
+
         public string FirstName
         {
             get

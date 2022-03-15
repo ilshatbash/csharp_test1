@@ -56,8 +56,10 @@ namespace WebAddressbookTests
 
             foreach (IWebElement element in elements)
             {
+              // Console.Out.WriteLine(element.Text);
                 ContactData contact = new ContactData(element.Text);
-                contacts.Add(contact);
+               contacts.Add(contact);
+
             }
 
            
