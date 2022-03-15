@@ -53,6 +53,7 @@ namespace WebAddressbookTests
             manager.Navigator.GoToHomePage();
 
            ICollection<IWebElement>elements= driver.FindElements(By.Name("entry"));
+
             foreach (IWebElement element in elements)
             {
                 ContactData contact = new ContactData(element.Text);
