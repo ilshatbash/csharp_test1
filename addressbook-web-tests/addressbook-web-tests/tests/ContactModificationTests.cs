@@ -18,15 +18,35 @@ namespace WebAddressbookTests
         public void ContactModificationTests()
         {
 
-            ContactData newContact = new ContactData("Ilshat", "ss", "fff", "79228837773");
-            if (!app.Contacts.IsElementPresent(By.Name("selected[]")))
+            List<ContactData> oldContacts = null;
+            if (app.Contacts.IsContactIn())
             {
-               
-                app.Contacts.Create(newContact);
+                oldContacts = app.Contacts.GetContactList();
+
+                ContactData contactM = new ContactData("MIvan", "MIvanov");
+                app.Contacts.Modify(0, contactM);
+
+                oldContacts[0].FirstName = contactM.FirstName;
+                oldContacts[0].LastName = contactM.LastName;
 
             }
-  
-            app.Contacts.Modify(0, newContact);
+            else
+            {
+                ContactData newContact = new ContactData("NewIvan", "NewIvanov");
+                app.Contacts.Create(newContact);
+
+                oldContacts = app.Contacts.GetContactList();
+                ContactData contactM = new ContactData("MIvanov_", "MIvan_");
+                app.Contacts.Modify(0, contactM);
+                oldContacts[0].FirstName = contactM.FirstName;
+                oldContacts[0].LastName = contactM.LastName;
+            }
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+
+            oldContacts.Sort();
+            newContacts.Sort();
+
+            Assert.AreEqual(oldContacts, newContacts);
 
         }
 

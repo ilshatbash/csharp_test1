@@ -46,6 +46,12 @@ namespace WebAddressbookTests
 
             return this;
         }
+        public bool IsContactIn()
+        {
+            return IsElementPresent(By.XPath("//tr[@name='entry']"));
+        }
+
+
         private List<ContactData> contactCache = null;
 
 
@@ -68,14 +74,8 @@ namespace WebAddressbookTests
                     ContactData contact = new ContactData(firstName,lastName);
                     contacts.Add(contact);
                 }
-
-
             }
-
             return contacts;
-
-
-
         }
 
 

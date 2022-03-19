@@ -17,33 +17,32 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemovalTests()
         {
-            if (!app.Contacts.IsElementPresent(By.Name("selected[]")))
+            List<ContactData> oldContacts = null;
+            if (app.Contacts.IsContactIn())
             {
-                ContactData newContact = new ContactData("asdfasd", "asdf","asdf","1234234");
-                app.Contacts.Create(newContact);
+                oldContacts = app.Contacts.GetContactList();
+                app.Contacts.Remove(0);          
             }
+            else
+            {
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
-            app.Contacts.Remove(0);
+
+                ContactData contact = new ContactData("NewIvan", "NewIvanov");
+
+                app.Contacts.Create(contact);
+
+                oldContacts = app.Contacts.GetContactList();
+                app.Contacts.Remove(0);
+
+            }
             List<ContactData> newContacts = app.Contacts.GetContactList();
             oldContacts.RemoveAt(0);
+            oldContacts.Sort();
+            newContacts.Sort();
+
             Assert.AreEqual(oldContacts, newContacts);
 
-
         }
-
-       
-       
-
-        
-  
-       
-
-        
-
-     
-
-
-       
+      
     }
 }
