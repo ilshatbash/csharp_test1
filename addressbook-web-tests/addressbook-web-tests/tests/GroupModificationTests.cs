@@ -17,21 +17,29 @@ namespace WebAddressbookTests
         [Test]
         public void GroupModificationTests()
         {
-            GroupData newGroup = new GroupData("TestGroup", "Test", "Test");
+            GroupData newData = new GroupData("TestGroup", "Test", "Test");
 
             if (!app.Contacts.IsElementPresent(By.Name("selected[]")))
             {
-                app.Groups.Create(newGroup);
+                app.Groups.Create(newData);
             }
             List<GroupData> oldGroups = app.Groups.GetGroupList();
+            GroupData oldData = oldGroups[0];
+            app.Groups.Modify(0, newData);
+            Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
 
-            app.Groups.Modify(0, newGroup);
             List<GroupData> newGroups = app.Groups.GetGroupList();
-
-            oldGroups[0].Name = newGroup.Name;
+            oldGroups[0].Name = newData.Name;
             oldGroups.Sort();
             newGroups.Sort();
             Assert.AreEqual(oldGroups, newGroups);
+            foreach (GroupData group in newGroups)
+            {
+                if(group.Id==oldData.Id)
+                {
+                    Assert.AreEqual(newData.Name,group.Name);
+                }
+            }
 
 
         }

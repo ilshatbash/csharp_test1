@@ -29,7 +29,7 @@ namespace WebAddressbookTests
         public ContactHelper Modify(int p, ContactData newData)
         {
             manager.Navigator.GoToHomePage();
-            SelectContact(p);//можно упустить этот метод как лишний, но пока оставил
+            SelectContact(p);
             InitContactModification(p);
             FillContactForm(newData);
             SubmitContactModification();
@@ -46,26 +46,38 @@ namespace WebAddressbookTests
 
             return this;
         }
+        private List<ContactData> contactCache = null;
 
-       public List<ContactData> GetContactList()
+
+        public List<ContactData> GetContactList()
         {
+            if (driver.Url != "http://localhost/addressbook")
+            {
+                driver.Navigate().GoToUrl("http://localhost/addressbook");
+            }
             List<ContactData> contacts = new List<ContactData>();
             manager.Navigator.GoToHomePage();
-
-           ICollection<IWebElement>elements= driver.FindElements(By.Name("entry"));
-
-            foreach (IWebElement element in elements)
+            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//table[@id='maintable']/tbody/tr"));
+            foreach (IWebElement tr in elements)
             {
-              // Console.Out.WriteLine(element.Text);
-                ContactData contact = new ContactData(element.Text);
-               contacts.Add(contact);
+                var tds = tr.FindElements(By.TagName("td"));
+                if (tds.Count > 0)
+                {
+                    var firstName = tds[2].Text;
+                    var lastName = tds[1].Text;
+                    ContactData contact = new ContactData(firstName,lastName);
+                    contacts.Add(contact);
+                }
+
 
             }
 
-           
             return contacts;
 
+
+
         }
+
 
         public ContactHelper SubmitContactCreation()
         {
@@ -130,7 +142,7 @@ namespace WebAddressbookTests
 
         public ContactHelper InitContactModification(int index)
         {
-            driver.FindElement(By.XPath("//tbody//td//img[@title='Edit'][" + index + "]")).Click();
+            driver.FindElement(By.XPath("//tbody//td//img[@title='Edit'][" + (index+1) + "]")).Click();
 
             return this;
         }
