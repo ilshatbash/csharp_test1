@@ -77,6 +77,7 @@ namespace WebAddressbookTests
         public string LastName { get; set; }
        
         public string Phone2 { get; set; }
+        public string Id { get; set; }
         
     }
 }
