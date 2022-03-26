@@ -17,6 +17,101 @@ namespace WebAddressbookTests
            
         }
 
+        public string GetContactInformationFromViewForm(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            InitContactViewDetailed(index);
+            string text = driver.FindElement(By.CssSelector("div#content")).Text;
+            return text;
+        }
+
+        public string GetContactInformationJoinViewForm(ContactData contact)
+        {
+            string joinForm = "";
+            if (!string.IsNullOrEmpty(contact.FirstName) || !string.IsNullOrEmpty(contact.MiddleName) || !string.IsNullOrEmpty(contact.LastName))
+            {
+                joinForm += contact.FirstName + " " + contact.MiddleName + " " + contact.LastName;
+
+            }
+            if (!string.IsNullOrEmpty(contact.NickName))
+            {
+                joinForm += "\r\n" + contact.NickName;
+            }
+            if (!string.IsNullOrEmpty(contact.Title))
+            {
+                joinForm += "\r\n" + contact.Title;
+            }
+            if (!string.IsNullOrEmpty(contact.Company))
+            {
+                joinForm += "\r\n" + contact.Company;
+            }
+            if (!string.IsNullOrEmpty(contact.Address))
+            {
+                joinForm += "\r\n" + contact.Address;
+            }
+            if (!string.IsNullOrEmpty(contact.HomePhone))
+            {
+                joinForm += "\r\n\r\n" + "H: " + contact.HomePhone;
+            }
+            if (!string.IsNullOrEmpty(contact.MobilePhone))
+            {
+                joinForm += "\r\n" + "M: " + contact.MobilePhone.Trim();
+            }
+            if (!string.IsNullOrEmpty(contact.WorkPhone))
+            {
+                joinForm += "\r\n" + "W: " + contact.WorkPhone;
+            }
+            if (!string.IsNullOrEmpty(contact.Fax))
+            {
+                joinForm += "\r\n" + "F: " + contact.Fax;
+            }
+            if (!string.IsNullOrEmpty(contact.Email))
+            {
+                joinForm += "\r\n\r\n" + contact.Email;
+            }
+            if (!string.IsNullOrEmpty(contact.Email2))
+            {
+                joinForm += "\r\n" + contact.Email2;
+            }
+            if (!string.IsNullOrEmpty(contact.Email3))
+            {
+                joinForm += "\r\n" + contact.Email3;
+            }
+            if (!string.IsNullOrEmpty(contact.HomePage))
+            {
+                joinForm += "\r\n" + "Homepage:" + "\r\n" + contact.HomePage;
+            }
+            if (contact.BDay != "0" || contact.BMonth != "-" || !string.IsNullOrEmpty(contact.BYear))
+            {
+                joinForm += "\r\n\r\n" + "Birthday " + (contact.BDay == "0" ? "" : contact.BDay + ". ") + (contact.BMonth == "-" ? "" : contact.BMonth + " ") + contact.BYear;
+            }
+            if (contact.ADay != "0" || contact.AMonth != "-" || !string.IsNullOrEmpty(contact.AYear))
+            {
+                joinForm += "\r\n" + "Anniversary " + (contact.ADay == "0" ? "" : contact.ADay + ". ") + (contact.AMonth == "-" ? "" : contact.AMonth + " ") + contact.AYear;
+            }
+            if (!string.IsNullOrEmpty(contact.Address2))
+            {
+                joinForm += "\r\n\r\n" + contact.Address2;
+            }
+            if (!string.IsNullOrEmpty(contact.Phone2))
+            {
+                joinForm += "\r\n\r\n" + "P: " + contact.Phone2;
+            }
+            if (!string.IsNullOrEmpty(contact.Notes))
+            {
+                joinForm += "\r\n\r\n" + contact.Notes;
+            }
+            Regex r = new Regex("[ ]+");
+            return r.Replace(joinForm.Trim(), @" ");
+
+        }
+
+        public void InitContactViewDetailed(int index)
+        {
+            driver.FindElement(By.XPath("//tbody/tr[@name='entry'][" + (index + 1) + "]" +
+                    "//img[@alt='Details']")).Click();
+        }
+
         public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.GoToHomePage();
@@ -36,6 +131,7 @@ namespace WebAddressbookTests
 
         }
 
+      
         public ContactData GetContactInformationFromTable(int index)
         {
             manager.Navigator.GoToHomePage();
@@ -218,6 +314,27 @@ namespace WebAddressbookTests
             return Int32.Parse(m.Value);
 
         }
+        public int GetNumberTableCount(string filtr)
+        {
+            ICollection<IWebElement> elements = driver.FindElements(By.XPath("//tr[@name='entry']"));
+            int count = 0;
+            foreach (IWebElement element in elements)
+            {
+                var data = Regex.Match(element.Text, filtr);
+                if (data.Success)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+       public void ContactsFiltr(string filtr)
+        {
+            manager.Navigator.GoToHomePage();
+            driver.FindElement(By.Name("searchstring")).SendKeys(filtr);
+            driver.FindElement(By.Name("searchstring")).SendKeys(Keys.Enter);
+        }
+
 
 
 

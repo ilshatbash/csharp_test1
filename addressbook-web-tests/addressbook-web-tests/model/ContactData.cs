@@ -72,17 +72,32 @@ namespace WebAddressbookTests
         }
       
         public string FirstName { get; set; }
-       
         public string MiddleName { get; set; }
-        
         public string LastName { get; set; }
-       
-        public string Phone2 { get; set; }
         public string Id { get; set; }
         public string Address { get; set; }
+        public string Address2 { get; set; }
+        public string NickName { get; set; }
+        public string Company { get; set; }
+        public string Title { get; set; }
+        public string Fax { get; set; }
+        public string HomePage { get; set; }
+        public string Phone2 { get; set; }
+        public string Notes { get; set; }
+
+        public string ADay { get; set; }
+        public string AMonth { get; set; }
+        public string AYear { get; set; }
+        public string BDay { get; set; }
+        public string BMonth { get; set; }
+        public string BYear { get; set; }
+        
         public string HomePhone { get; set; }
         public string MobilePhone { get; set; }
         public string WorkPhone { get; set; }
+        public string Email { get; set; }
+        public string Email2 { get; set; }
+        public string Email3 { get; set; }
         public string AllPhones
         {
             get
@@ -108,7 +123,43 @@ namespace WebAddressbookTests
             {
                 return "";
             }
-            return Regex.Replace(phone,"[ -()]","") +"\r\n";
+            else
+            {
+                return Regex.Replace(phone, "[ -()]", "") + "\r\n";
+            }
+            
+        }
+        private string allEmail;
+        public string AllEmail
+        {
+            get
+            {
+                if (allEmail != null)
+                {
+                    return allEmail;
+                }
+                else
+                {
+                    return CleanUpEmail(Email) + CleanUpEmail(Email2) + CleanUpEmail(Email3).Trim();
+                }
+            }
+            set
+            {
+                allEmail = value;
+            }
+        }
+
+        private string CleanUpEmail(string email)
+        {
+            if (email == null || email == "")
+            {
+                return "";
+            }
+            else
+            {
+                return email + "\r\n";
+            }
         }
     }
+
 }
