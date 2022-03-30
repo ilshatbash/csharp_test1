@@ -17,14 +17,24 @@ namespace WebAddressbookTests
         [SetUp]
         public void SetupApplictionManager()
         {
-            app = ApplicationManager.GetInstance(); ;
-           // app.Auth.Login(new AccountData("admin", "secret"));
+            app = ApplicationManager.GetInstance(); 
+        }
+            
+        public static Random rnd = new Random();
 
-
+        public static string GenerateRandomString(int max)
+        {
+            Random rnd = new Random();
+            int l = Convert.ToInt32(rnd.NextDouble() * max);
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < l; i++)
+            {
+                int num = 174 + Convert.ToInt32(rnd.NextDouble() * 81);
+                builder.Append(Convert.ToChar(num));
+            }
+            return builder.ToString();
         }
 
-       
-        
 
 
     }
