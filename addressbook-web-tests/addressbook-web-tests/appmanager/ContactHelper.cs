@@ -28,82 +28,111 @@ namespace WebAddressbookTests
         public string GetContactInformationJoinViewForm(ContactData contact)
         {
             string joinForm = "";
+            string paragraph1 = "", paragraph2 = "", paragraph3 = "", paragraph4 = "",
+                paragraph5 = "", paragraph6 = "", paragraph7 = "";
             if (!string.IsNullOrEmpty(contact.FirstName) || !string.IsNullOrEmpty(contact.MiddleName) || !string.IsNullOrEmpty(contact.LastName))
             {
-                joinForm += contact.FirstName + " " + contact.MiddleName + " " + contact.LastName;
+                 paragraph1 += contact.FirstName + " " + contact.MiddleName + " " + contact.LastName;
 
             }
             if (!string.IsNullOrEmpty(contact.NickName))
             {
-                joinForm += "\r\n" + contact.NickName;
+                paragraph1 += "\r\n" + contact.NickName;
             }
             if (!string.IsNullOrEmpty(contact.Title))
             {
-                joinForm += "\r\n\r\n" + contact.Title;
+                paragraph1 += "\r\n" + contact.Title;
             }
             if (!string.IsNullOrEmpty(contact.Company))
             {
-                joinForm += "\r\n" + contact.Company;
+                paragraph1 += "\r\n" + contact.Company;
             }
             if (!string.IsNullOrEmpty(contact.Address))
             {
-                joinForm += "\r\n" + contact.Address;
+                paragraph1 += "\r\n" + contact.Address;
             }
+           
+
             if (!string.IsNullOrEmpty(contact.HomePhone))
             {
-                joinForm += "\r\n\r\n" + "H: " + contact.HomePhone;
+                paragraph2 += "\r\n" + "H: " + contact.HomePhone;
             }
+           
             if (!string.IsNullOrEmpty(contact.MobilePhone))
             {
-                joinForm += "\r\n" + "M: " + contact.MobilePhone.Trim();
+                paragraph2 += "\r\n" + "M: " + contact.MobilePhone.Trim();
             }
             if (!string.IsNullOrEmpty(contact.WorkPhone))
             {
-                joinForm += "\r\n" + "W: " + contact.WorkPhone;
+                paragraph2 += "\r\n" + "W: " + contact.WorkPhone;
             }
             if (!string.IsNullOrEmpty(contact.Fax))
             {
-                joinForm += "\r\n" + "F: " + contact.Fax;
+                paragraph2 += "\r\n" + "F: " + contact.Fax;
             }
             if (!string.IsNullOrEmpty(contact.Email))
             {
-                joinForm += "\r\n\r\n" + contact.Email;
+                paragraph3 += "\r\n" + contact.Email;
             }
+           
             if (!string.IsNullOrEmpty(contact.Email2))
             {
-                joinForm += "\r\n" + contact.Email2;
+                paragraph3 += "\r\n" + contact.Email2;
             }
             if (!string.IsNullOrEmpty(contact.Email3))
             {
-                joinForm += "\r\n" + contact.Email3;
+                paragraph3 += "\r\n" + contact.Email3;
             }
             if (!string.IsNullOrEmpty(contact.HomePage))
             {
-                joinForm += "\r\n" + "Homepage:" + "\r\n" + contact.HomePage;
+                paragraph3 += "\r\n" + "Homepage:" + "\r\n" + contact.HomePage;
             }
             if (contact.BDay != "0" || contact.BMonth != "-" || !string.IsNullOrEmpty(contact.BYear))
             {
-                joinForm += "\r\n\r\n" + "Birthday " + (contact.BDay == "0" ? "" : contact.BDay + ". ") + (contact.BMonth == "-" ? "" : contact.BMonth + " ") + contact.BYear;
+                paragraph4 += "\r\n" + "Birthday " + (contact.BDay == "0" ? "" : contact.BDay + ". ") + (contact.BMonth == "-" ? "" : contact.BMonth + " ") + contact.BYear;
             }
             if (contact.ADay != "0" || contact.AMonth != "-" || !string.IsNullOrEmpty(contact.AYear))
             {
-                joinForm += "\r\n" + "Anniversary " + (contact.ADay == "0" ? "" : contact.ADay + ". ") + (contact.AMonth == "-" ? "" : contact.AMonth + " ") + contact.AYear;
+                paragraph4 += "\r\n" + "Anniversary " + (contact.ADay == "0" ? "" : contact.ADay + ". ") + (contact.AMonth == "-" ? "" : contact.AMonth + " ") + contact.AYear;
             }
             if (!string.IsNullOrEmpty(contact.Address2))
             {
-                joinForm += "\r\n\r\n" + contact.Address2;
+                paragraph5 += "\r\n" + contact.Address2;
             }
             if (!string.IsNullOrEmpty(contact.Phone2))
             {
-                joinForm += "\r\n\r\n" + "P: " + contact.Phone2;
+                paragraph6 += "\r\n" + "P: " + contact.Phone2;
             }
             if (!string.IsNullOrEmpty(contact.Notes))
             {
-                joinForm += "\r\n\r\n" + contact.Notes;
+                paragraph7 += "\r\n" + contact.Notes;
             }
+            joinForm = paragraph1 +
+                 ((paragraph2 != "") ? "\r\n" : "") + paragraph2 +
+                ((paragraph3 != "") ? "\r\n" : "") + paragraph3 +
+                ((paragraph4 != "") ? "\r\n" : "") + paragraph4 +
+                ((paragraph5 != "") ? "\r\n" : "") + paragraph5 +
+                ((paragraph6 != "") ? "\r\n" : "") + paragraph6 +
+                ((paragraph7 != "") ? "\r\n" : "") + paragraph7;
+
             Regex r = new Regex("[ ]+");
+
             return r.Replace(joinForm.Trim(), @" ");
 
+        }
+
+        public bool IsContactPhoneExist(ContactData contact)
+        {
+            if (string.IsNullOrEmpty(contact.HomePhone) || string.IsNullOrEmpty(contact.WorkPhone) ||
+                string.IsNullOrEmpty(contact.MobilePhone) || string.IsNullOrEmpty(contact.Fax))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+            
         }
 
         public void InitContactViewDetailed(int index)
