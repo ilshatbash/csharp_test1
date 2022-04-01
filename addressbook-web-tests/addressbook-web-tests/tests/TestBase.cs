@@ -24,7 +24,7 @@ namespace WebAddressbookTests
 
         public static string GenerateRandomString(int max)
         {
-            Random rnd = new Random();
+           
             int l = Convert.ToInt32(rnd.NextDouble() * max);
             StringBuilder builder = new StringBuilder();
             for (int i = 0; i < l; i++)
