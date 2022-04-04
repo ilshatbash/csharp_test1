@@ -43,7 +43,7 @@ namespace WebAddressbookTests
 
             return groups;
         }
-      
+       
 
         [Test, TestCaseSource("GroupDataFromFile")]
         public void GroupCreationTests(GroupData group)
