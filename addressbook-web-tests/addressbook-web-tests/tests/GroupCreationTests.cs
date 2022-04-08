@@ -5,6 +5,7 @@ using System.Threading;
 using System.IO;
 using NUnit.Framework;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -96,6 +97,23 @@ namespace WebAddressbookTests
             newGroups.Sort();
             Assert.AreEqual(oldGroups,newGroups);
         }
-        
-    }
+
+
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start1 = DateTime.Now;
+            List<GroupData>fromUI= app.Groups.GetGroupList();
+            DateTime end1 = DateTime.Now;
+            System.Console.Out.WriteLine("UI-"+ end1.Subtract(start1));
+
+            DateTime start2 = DateTime.Now;
+            List<GroupData> fromDB = GroupData.GetAll();            
+            DateTime end2 = DateTime.Now;
+            System.Console.Out.WriteLine("DB-"+ end2.Subtract(start2));
+            System.Console.Out.WriteLine("STOP");
+        }
+
+
+        }
 }
