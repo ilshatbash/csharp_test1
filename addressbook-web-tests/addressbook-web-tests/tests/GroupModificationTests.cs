@@ -12,23 +12,23 @@ namespace WebAddressbookTests
 {
 
     [TestFixture]
-    public class GroupModificationTest : AuthTestBase
+    public class GroupModificationTest : GroupTestBase
     {
         [Test]
         public void GroupModificationTests()
         {
-            GroupData newData = new GroupData("TestGroup", "Test", "Test");
-
-            if (!app.Contacts.IsElementPresent(By.Name("selected[]")))
+            GroupData newData = new GroupData("new1", "new1", "Group1");
+            if (!app.Groups.IsGroupIn())
             {
                 app.Groups.Create(newData);
             }
-            List<GroupData> oldGroups = app.Groups.GetGroupList();
+
+            List<GroupData> oldGroups = GroupData.GetAll();
             GroupData oldData = oldGroups[0];
-            app.Groups.Modify(0, newData);
+            app.Groups.Modify(oldData, newData);
             Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
 
-            List<GroupData> newGroups = app.Groups.GetGroupList();
+            List<GroupData> newGroups = GroupData.GetAll();
             oldGroups[0].Name = newData.Name;
             oldGroups.Sort();
             newGroups.Sort();
