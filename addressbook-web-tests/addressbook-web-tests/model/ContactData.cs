@@ -4,11 +4,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using LinqToDB.Mapping;
 
 namespace WebAddressbookTests
 {
+    [Table(Name = "addressbook")]
     public class ContactData:IEquatable<ContactData>, IComparable<ContactData>
     {
+        [Column(Name = "firstname")]
+        public string FirstName { get; set; }
+        [Column(Name = "middlename")]
+        public string MiddleName { get; set; }
+        [Column(Name = "lastname")]
+        public string LastName { get; set; }
+        [Column(Name = "id"), PrimaryKey, Identity]
+        public string Id { get; set; }
+
+        public string Address { get; set; }
+        public string Address2 { get; set; }
+        public string NickName { get; set; }
+        public string Company { get; set; }
+        public string Title { get; set; }
+        public string Fax { get; set; }
+        public string HomePage { get; set; }
+        public string Phone2 { get; set; }
+        public string Notes { get; set; }
+
+        public string ADay { get; set; }
+        public string AMonth { get; set; }
+        public string AYear { get; set; }
+        public string BDay { get; set; }
+        public string BMonth { get; set; }
+        public string BYear { get; set; }
+
+        public string HomePhone { get; set; }
+        public string MobilePhone { get; set; }
+        public string WorkPhone { get; set; }
+        public string Email { get; set; }
+        public string Email2 { get; set; }
+        public string Email3 { get; set; }
         private string allPhones;
         public ContactData()
         {
@@ -29,6 +63,15 @@ namespace WebAddressbookTests
             LastName = lastname;
             Phone2 = phone2;
         }
+
+        public static List<ContactData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from g in db.Contacts select g).ToList();
+            }
+        }
+
         public ContactData(string firstName, string middleName, string lastName, string phone2)
         {
             FirstName = firstName;
@@ -74,33 +117,7 @@ namespace WebAddressbookTests
 
         }
       
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
-        public string LastName { get; set; }
-        public string Id { get; set; }
-        public string Address { get; set; }
-        public string Address2 { get; set; }
-        public string NickName { get; set; }
-        public string Company { get; set; }
-        public string Title { get; set; }
-        public string Fax { get; set; }
-        public string HomePage { get; set; }
-        public string Phone2 { get; set; }
-        public string Notes { get; set; }
-
-        public string ADay { get; set; }
-        public string AMonth { get; set; }
-        public string AYear { get; set; }
-        public string BDay { get; set; }
-        public string BMonth { get; set; }
-        public string BYear { get; set; }
         
-        public string HomePhone { get; set; }
-        public string MobilePhone { get; set; }
-        public string WorkPhone { get; set; }
-        public string Email { get; set; }
-        public string Email2 { get; set; }
-        public string Email3 { get; set; }
         public string AllPhones
         {
             get

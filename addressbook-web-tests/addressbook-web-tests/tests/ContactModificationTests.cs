@@ -12,25 +12,24 @@ namespace WebAddressbookTests
 
 {
     [TestFixture]
-    class ContactModificationTest : AuthTestBase
+    class ContactModificationTest : ContactTestBase
     {
         [Test]
         public void ContactModificationTests()
         {
 
-            List<ContactData> oldContacts = null;
-            ContactData oldContact; ;
+            
             if (!app.Contacts.IsContactIn())
             {
                 app.Contacts.Create(new ContactData("NewIvan", "NewIvanov"));
             }
-
-            oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAll();
             ContactData contactM = new ContactData("MIvan", "MIvanov");
-            app.Contacts.Modify(0, contactM);
+            ContactData oldContact = oldContacts[0];
+            app.Contacts.Modify(oldContact, contactM);
+            List<ContactData> newContacts = ContactData.GetAll();
             oldContacts[0].FirstName = contactM.FirstName;
             oldContacts[0].LastName = contactM.LastName;
-            List<ContactData> newContacts = app.Contacts.GetContactList();
             oldContact = oldContacts[0];
             oldContacts.Sort();
             newContacts.Sort();

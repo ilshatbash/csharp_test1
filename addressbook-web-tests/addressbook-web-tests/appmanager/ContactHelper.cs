@@ -25,6 +25,8 @@ namespace WebAddressbookTests
             return text;
         }
 
+       
+
         public string GetContactInformationJoinViewForm(ContactData contact)
         {
             string joinForm = "";
@@ -120,6 +122,8 @@ namespace WebAddressbookTests
             return r.Replace(joinForm.Trim(), @" ");
 
         }
+
+       
 
         public bool IsContactPhoneExist(ContactData contact)
         {
@@ -240,7 +244,7 @@ namespace WebAddressbookTests
 
         public ContactHelper Modify(int p, ContactData newData)
         {
-            manager.Navigator.GoToHomePage();
+            //manager.Navigator.GoToHomePage();
             SelectContact(p);
             InitContactModification(p);
             FillContactForm(newData);
@@ -249,6 +253,19 @@ namespace WebAddressbookTests
 
             return this;
         }
+        public ContactHelper Modify(ContactData oldContact, ContactData contactM)
+        {
+            //SelectContact(oldContact.Id);
+            InitContactModification(oldContact.Id);
+            FillContactForm(contactM);
+            SubmitContactModification();
+            ReturnToHomePage();
+
+            return this;
+        }
+
+
+
 
         public int GetContactCount()
         {
@@ -257,13 +274,21 @@ namespace WebAddressbookTests
 
         public ContactHelper Remove(int p)
         {
-            manager.Navigator.GoToHomePage();
+           // manager.Navigator.GoToHomePage();
             SelectContact(p);
             DeleteContact();
             ReturnToHomePage();
 
             return this;
         }
+        public  ContactHelper Remove(ContactData toBeRemoved)
+        {
+            SelectContact(toBeRemoved.Id);
+            DeleteContact();
+            ReturnToHomePage();
+            return this;
+        }
+
         public bool IsContactIn()
         {
             return IsElementPresent(By.XPath("//tr[@name='entry']"));
@@ -357,21 +382,19 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("//tbody//input[@type='checkbox'][" + (index+1) + "]")).Click();
             return this;
         }
+        public ContactHelper SelectContact(String id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "'])")).Click();
+            return this;
+        }
+
         public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
             contactCache = null;
             return this;
         }
-
-        public ContactHelper InitContactModification(int index)
-        {
-            driver.FindElements(By.Name("entry"))[index]
-                .FindElements(By.TagName("td"))[7]
-                .FindElement(By.TagName("a")).Click();
-
-            return this;
-        }
+           
 
         public ContactHelper InitContactModification()
         {
@@ -379,6 +402,19 @@ namespace WebAddressbookTests
 
             return this;
         }
+        public ContactHelper InitContactModification(int index)
+        {
+            driver.FindElement(By.XPath("//tbody/tr[@name='entry'][" + (index + 1) + "]" +
+                    "//img[@alt='Edit']")).Click();
+            return this;
+        }
+        public ContactHelper InitContactModification(String id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='" + id + "']/../.." +
+                      "//img[@alt='Edit'])")).Click();
+            return this;
+        }
+        
         public int GetNumberOfSearchResults()
         {
             manager.Navigator.GoToHomePage();
