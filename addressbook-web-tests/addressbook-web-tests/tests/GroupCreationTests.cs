@@ -113,5 +113,16 @@ namespace WebAddressbookTests
             System.Console.Out.WriteLine("DB-"+ end2.Subtract(start2));
            
         }
-       }
+        [Test]
+        public void TestDBConnectivity2()
+        {
+            System.Console.Out.WriteLine("В группу ввхояд следующие контакты:");
+            foreach (ContactData contact in GroupData.GetAll()[1].GetContacts())
+            {
+                System.Console.Out.WriteLine(contact);
+            }
+
+        }
+
+    }
 }
