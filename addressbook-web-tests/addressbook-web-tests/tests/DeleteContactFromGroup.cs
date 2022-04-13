@@ -14,6 +14,23 @@ namespace WebAddressbookTests
         {
             List<GroupData> groups = GroupData.GetAll();
             bool isOk = false;
+            if (groups.Count == 0)
+            {
+                GroupData group = new GroupData("new","group","test");
+                app.Groups.Create(group);
+                groups = GroupData.GetAll();
+            }
+
+            List<ContactData> con = ContactData.GetAll();
+            if (con.Count == 0)
+            {
+                ContactData contact = new ContactData("firstname_", "lastname_");
+                contact.MiddleName = "middlename_";
+                app.Contacts.Create(contact);
+                app.Contacts.AddContactToGroup(ContactData.GetAll().First(), groups.First());
+
+            }
+            
             for (int i = 0; i < groups.Count; i++)
             {
                 ContactData contact = groups[i].GetContacts().FirstOrDefault();
@@ -22,13 +39,7 @@ namespace WebAddressbookTests
                 {
                     isOk = true;
                     GroupData group = groups[i];
-                    List<ContactData> oldList = group.GetContacts();
-                    app.Contacts.DeleteContactFromGroup(contact, group);
-                    List<ContactData> newList = group.GetContacts();
-                    oldList.Remove(contact);
-                    newList.Sort();
-                    oldList.Sort();
-                    Assert.AreEqual(oldList, newList);
+                    Delete(contact, group);
                     break;
                 }
             }
@@ -37,15 +48,22 @@ namespace WebAddressbookTests
                 GroupData group = GroupData.GetAll()[0];
                 ContactData contact = ContactData.GetAll().First();
                 app.Contacts.AddContactToGroup(contact, group);
-                List<ContactData> oldList = group.GetContacts();
-                app.Contacts.DeleteContactFromGroup(contact, group);
-                List<ContactData> newList = group.GetContacts();
-                oldList.Remove(contact);
-                newList.Sort();
-                oldList.Sort();
-                Assert.AreEqual(oldList, newList);
+                Delete(contact, group);
             }
         }
+        public void Delete(ContactData contact, GroupData group)
+        {
+            List<ContactData> oldList = group.GetContacts();
+            app.Contacts.DeleteContactFromGroup(contact, group);
+            List<ContactData> newList = group.GetContacts();
+            oldList.Remove(contact);
+            newList.Sort();
+            oldList.Sort();
+            Assert.AreEqual(oldList, newList);
+        }
+
+
+
     }
 }
 
